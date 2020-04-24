@@ -1,0 +1,35 @@
+.login
+{
+    max-width: 50%;
+    margin-left: 25%;
+    margin-top:10%;
+    margin-bottom: 10%;
+    padding: 5%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.login-hdr
+{
+    background: coral;
+    border-radius: 5px;
+    padding:5px;
+    padding-left:32%;
+    text-align: center ;
+}
+
+.login-form
+{
+    max-width: 90%;
+    padding: 5%;
+}
+
+mat-form-field
+{
+    width: 100%;
+    font-size :20px;
+}
+
+mat-card-footer
+{
+    padding-left: 30%;
+}

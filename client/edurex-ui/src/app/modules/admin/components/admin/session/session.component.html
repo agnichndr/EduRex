@@ -1,0 +1,145 @@
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+    <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+        <strong>Success!</strong> {{message}}
+      </div>
+<button  mat-raised-button color="primary" class="new action-button" (click)="showAddSessionForm()">Create New</button>
+<button mat-raised-button color="primary" [matMenuTriggerFor]="bulkmenu" class="action-button">Bulk Action</button>
+<mat-menu #bulkmenu="matMenu">
+<button mat-menu-item (click)="deleteSessions()">
+    <i class="fas fa-trash"></i>
+  <span> Delete</span>
+</button>
+</mat-menu>
+
+<mat-divider></mat-divider>
+
+<mat-card [hidden]="addSessionhidden" class="login">
+    <mat-card-header class="login-hdr">
+        <mat-card-title>
+            <h2>Session Creation</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Field marked * are required.
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="login-form">
+        <form #addSubjectForm = "ngForm" (ngSubmit)="addSession()">  
+        <mat-form-field class="form-group"  appearance="outline">
+            <mat-label>Session Id</mat-label>
+            <input name="subject_id"  matInput placeholder="Eg: SS1" [formControl]="sessionidcontrol" required>
+            <mat-hint>Session Id should be unique.</mat-hint>
+            <mat-error>{{getSessionIdErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Session Name</mat-label>
+                <input name="subject_name" matInput placeholder="Eg: yyyy-yyyy" [formControl]="sessionnamecontrol" required>
+                <mat-error>{{getSessionNameErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <button class="action-button" mat-raised-button color="accent" type="submit" [disabled]="submitDisabled()">Save</button>
+        <button class="action-button" mat-raised-button color="basic" type="reset">Reset</button>
+        <button type="button" mat-raised-button color="warn" (click)="closeAddSessionForm()">Cancel</button>
+        </form>
+        
+        
+    </mat-card-content>
+</mat-card>
+
+
+<mat-card [hidden]="editSessionhidden" class="login">
+        <mat-card-header class="login-hdr">
+            <mat-card-title>
+                <h2>Session Update</h2>
+                <h4>Id : {{selectedSession.session_id}}</h4>
+            </mat-card-title>
+            <mat-card-subtitle>
+                Field marked * are required.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="login-form">
+            <form #editSubjectForm = "ngForm" (ngSubmit)="editSession()">  
+            <mat-form-field class="form-group" appearance="outline">
+                    <mat-label>Session Name</mat-label>
+                    <input name="edited_subject_name" [(ngModel)]="selectedSession.session_name" matInput placeholder="Eg: yyyy-yyyy" [formControl]="editsessionnamecontrol" required>
+                    <mat-error>{{getEditSessionNameErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <button class="action-button" mat-raised-button color="accent" type="submit" [disabled]="updateDisabled()" >Update</button>
+                      <button type="button" mat-raised-button color="warn" (click)="closeEditSessionForm()">Cancel</button>
+            </form>
+            
+            
+        </mat-card-content>
+    </mat-card>
+
+
+
+
+
+
+    <div class="filter">
+     <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Chemistry">
+      </mat-form-field>
+    </div>
+<div>  
+    
+    <div class="paginator">
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+      </div>
+<table matSort  mat-table [dataSource]="dataSource" class="mat-elevation-z8 board-table">
+
+
+<ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+
+
+
+<ng-container matColumnDef="session_id">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header > Session Id </th>
+  <td mat-cell *matCellDef="let session"> {{session.session_id}} </td>
+</ng-container>
+
+
+<ng-container matColumnDef="session_name">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header > Session Name </th>
+  <td mat-cell *matCellDef="let session"> {{session.session_name}} </td>
+</ng-container>
+
+<ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef color="primary"> Action</th>
+    <td mat-cell *matCellDef="let session">
+        <button class="action-button" mat-mini-fab color="accent" [disabled]="editDisable" (click)="showEditSessionForm(session)"><i class="fas fa-edit"></i></button>
+        <button  class="action-button" mat-mini-fab color="warn" (click) = "deleteSession(session._id,session.session_id,session.session_name)"> <i class="fas fa-trash"></i></button>
+     </td>
+  </ng-container>
+
+  <ng-container matColumnDef="current">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header > Set Current Session </th>
+    <td mat-cell *matCellDef="let session"><mat-slide-toggle (click)="setCurrentSession(session.session_id)" checked="{{session.current}}"></mat-slide-toggle></td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

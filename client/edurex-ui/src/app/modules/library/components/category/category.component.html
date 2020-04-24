@@ -1,0 +1,67 @@
+<button mat-fab color="primary" 
+routerLink = "/e-library/home" class="home-button"><mat-icon>home</mat-icon></button>
+
+<mat-tab-group>
+  <mat-tab label="Article Category">
+    <ng-template matTabContent>
+      <form class ="catFrm" [formGroup]="articleCategoryForm">
+        <mat-form-field class="form-group" appearance="outline" style="display: inline-block; width:50%;margin-right: 1rem;">
+          <mat-label>Category Name</mat-label>
+          <input matInput formControlName ="category_name" placeholder="Enter a category Name" required>
+          <mat-hint>Category name should not contain more than 100 characters</mat-hint>
+          <mat-error *ngIf="category_name.hasError('required')">Value is required</mat-error>
+          <mat-error *ngIf="category_name.hasError('maxLength')">Character limit exceeded</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" class="action-button" (click)="addCategory()" [disabled]="submitCatDisabled()">Add Category</button>
+        <button mat-raised-button color="accent" type="reset" class="action-button">Reset</button>
+      </form>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor = "let articleCategory of articleCategories; let i = index">
+          <mat-expansion-panel-header style="background-color:{{header_color[i%8]}}">
+              <mat-panel-title style="color:black;display: flex;" >
+                  {{articleCategory.book_category}}<span class="example-spacer"></span>
+                  <button mat-mini-fab color="warn" (click)="removeCategory(articleCategory._id)"><mat-icon>delete</mat-icon></button>
+                  </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form class ="catFrm" [formGroup]="articleSubCategoryForm">
+              <mat-form-field class="form-group" appearance="outline" style="display: inline-block; width:50%;margin-right: 1rem;">
+                <mat-label>Subcategory Name</mat-label>
+                <input matInput formControlName ="subcategory_name" placeholder="Enter a subcategory Name" required>
+                <mat-hint>Subcategory name should not contain more than 100 characters.</mat-hint>
+                <mat-error *ngIf = "subcategory_name.hasError('required')">Value is required</mat-error>
+                <mat-error *ngIf = "subcategory_name.hasError('maxLength')">Character limit exceeded</mat-error>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit" class="action-button" 
+              (click)="addSubCategory(articleCategory._id)" [disabled]="submitSubCatDisabled()">Add Subcategory</button>
+              <button mat-raised-button color="accent" type="reset" class="action-button">Reset</button>
+            </form>
+          <p *ngFor = "let subcategory of articleCategory.book_subCategory" style="display: flex;">
+            {{subcategory}}<span class="example-spacer"></span>
+            <button mat-mini-fab color="warn" style="margin-left: 1rem;" (click)="removeSubCategory(subcategory,articleCategory._id)"><mat-icon>remove</mat-icon></button>
+          </p>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Subcription Category">
+    <ng-template matTabContent>
+        <form class ="catFrm" [formGroup]="subscriptionCategoryForm">
+            <mat-form-field class="form-group" appearance="outline" style="display: inline-block; width:50%;margin-right: 1rem;">
+              <mat-label>Subscription Category Name</mat-label>
+              <input matInput formControlName ="subscription_category_name" placeholder="Enter a subscription category Name" required>
+              
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" class="action-button" (click)="addSubscriptionCategory()" [disabled]="submitSubscriptionDisabled()">Add Category</button>
+            <button mat-raised-button color="accent" type="reset" class="action-button">Reset</button>
+          </form><br>
+          <mat-card *ngFor = "let subscat of subscriptionCategories; let i = index">
+            <mat-card-header style="display: flex;">
+           <h2><strong>{{subscat.subscription_category}}</strong></h2>
+           <span class="example-spacer"></span>
+           <button mat-mini-fab color="warn" (click)="removeSubscriptionCategory(subscat._id)"><mat-icon>delete</mat-icon></button>
+            </mat-card-header>
+            </mat-card>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

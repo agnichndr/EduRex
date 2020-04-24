@@ -1,0 +1,33 @@
+<mat-card class="login">
+    <mat-card-header class="login-hdr">
+        <mat-card-title>
+            <h2>Login</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Field marked * are required.
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="login-form">
+        <form>
+        <mat-form-field class="form-group" appearance="outline">
+            <mat-label>User Id</mat-label>
+            <input  matInput placeholder="Eg (Ph): 9432130163" [formControl]="userid" required>
+            <mat-hint>User Id should be a valid 10-digit registered mobile number.</mat-hint>
+            <mat-error>{{getUserIdErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+            <mat-label>Password </mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required [formControl]="passwd">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+        </form>
+        <button mat-raised-button color="accent">Login</button>
+    </mat-card-content>
+    <mat-card-footer>
+        Do not have an account ?  
+        <button mat-raised-button color="warn">Register</button>
+    </mat-card-footer>
+</mat-card>

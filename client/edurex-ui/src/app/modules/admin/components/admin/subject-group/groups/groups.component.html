@@ -1,0 +1,60 @@
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+    <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+        <strong>Success!</strong> {{message}}
+      </div>
+    
+    <div class="container">
+    <div class="row">
+   <div class="col-sm-4 col-md-4 col-lg-4" *ngFor="let group of groupList;let i = index;">
+    
+    <mat-card style="background-color:{{header_color[i%8]}}"class="group">
+        <mat-card-header style="color:black; margin : 1rem; border-radius : 2px">
+            <h2>{{group.group_id}} : {{group.group_name}}</h2>
+        </mat-card-header>
+           <mat-card-content>
+               <mat-accordion>
+                    <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Subjects 
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-accordion>
+                                    <mat-expansion-panel *ngFor = "let subject of group.subject">
+                                            <mat-expansion-panel-header>
+                                              <mat-panel-title>
+                                                {{subject.subject_id}}
+                                              </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <section *ngFor="let cls of subject.classes_id">
+                                            <p>{{cls}}</p>
+                                           </section> 
+                                          </mat-expansion-panel>
+                               </mat-accordion>
+                          </mat-expansion-panel>
+               </mat-accordion>
+           </mat-card-content>
+           <mat-card-footer>
+           <button mat-mini-fab class="action-button" color="accent" routerLink="edit/{{group.group_id}}"><i class="fas fa-edit"></i></button>
+           <button mat-mini-fab class="action-button" color="warn" (click)="deleteGroup(group._id,group)"><i class="fas fa-trash"></i></button>
+           </mat-card-footer>
+       </mat-card>
+    </div>
+    </div>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+      <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+      <strong>Error!</strong> {{error}}
+    </div>
+    <mat-divider></mat-divider>
+    <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+          <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+          <strong>Success!</strong> {{message}}
+        </div>
+      

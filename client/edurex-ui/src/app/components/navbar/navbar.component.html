@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="navbar">
+    <mat-toolbar-row>
+      <span>Edurex</span>
+      <span class="example-spacer"></span>
+      <span>
+        <mat-slide-toggle (click)="$event.stopPropagation();toggleDarkMode()" style="margin-right: 1rem; font-size: 11px;">
+        Dark Mode</mat-slide-toggle></span>
+      <span><button mat-mini-fab color="basic" [matMenuTriggerFor]="settings"><mat-icon class="auto-flip">settings</mat-icon> </button></span>
+
+
+      <mat-menu #settings="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="theme"
+        matTooltip="Select a theme!" > <mat-icon class="auto-flip">format_color_fill</mat-icon> Theme</button>
+  
+      </mat-menu>
+      
+      <mat-menu #theme="matMenu">
+        <button mat-menu-item (click)="$event.stopPropagation();changeTheme(themeList[0])"><mat-icon class="auto-flip" style="color:indigo">invert_colors</mat-icon>Candy</button>
+        <button mat-menu-item (click)="$event.stopPropagation();changeTheme(themeList[1])"><mat-icon class="auto-flip" style="color:deeppink">invert_colors</mat-icon>Romance</button>
+        <button mat-menu-item (click)="$event.stopPropagation();changeTheme(themeList[2])"><mat-icon class="auto-flip" style="color:teal">invert_colors</mat-icon>Wave</button>
+        <button mat-menu-item (click)="$event.stopPropagation();changeTheme(themeList[3])"><mat-icon class="auto-flip" style="color:brown">invert_colors</mat-icon>Sand</button>
+        <button mat-menu-item (click)="$event.stopPropagation();changeTheme(themeList[4])"><mat-icon class="auto-flip" style="color:yellow">invert_colors</mat-icon>Bubble</button>
+      </mat-menu>
+      
+      
+
+      <span class="btn"><button mat-raised-button class="login-button" routerLink="/login">
+        <mat-icon class="auto-flip">account_circle</mat-icon> Login</button></span>
+      <span class="btn"><button mat-raised-button color="accent"
+         class="register-button">Register</button></span>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+

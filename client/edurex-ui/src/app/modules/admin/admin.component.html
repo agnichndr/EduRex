@@ -1,0 +1,150 @@
+<mat-toolbar color="accent" class="breadcrumb">
+  <mat-toolbar-row>
+      <span>
+      <button type="button" mat-fab color="primary"(click)="drawer.toggle()" >
+        <i style="font-size: 30px;" class="fas fa-bars"></i>
+      </button>
+    </span>
+    <span class="example-spacer"></span>
+    <span><button type="button" mat-raised-button  target="_blank" color="accent">
+      <mat-icon class="auto-flip" color="primary">wb_cloudy</mat-icon>
+      <a  href="/e-library/home" target="_blank" style="color:white">e-Library</a></button></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-drawer-container class="admin-dashboard-container" autosize>
+    <mat-drawer #drawer class="admin-sidenav" mode="side">
+        <mat-accordion>
+            <button mat-raised-button color="primary" routerLink="/admin/dashboard">
+              <mat-icon class="auto-flip">dashboard</mat-icon>Dashboard</button>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="auto-flip">assessment</mat-icon> Assessment
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <button mat-raised-button color="primary" routerLink="/admin/assessment">
+                <mat-icon class="auto-flip">label_important</mat-icon> All</button>
+                <button mat-raised-button color="primary" routerLink="/admin/assessment">
+                  <mat-icon class="auto-flip">add_box</mat-icon> Create New</button>
+            </mat-expansion-panel>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="auto-flip">select_all</mat-icon> Boards
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <button mat-raised-button color="primary" routerLink="/admin/boards">
+                <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+            </mat-expansion-panel>
+            <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon class="auto-flip">class</mat-icon> Classes
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary"  routerLink="/admin/class" >
+                  <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+              </mat-expansion-panel>
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon class="auto-flip">extension</mat-icon>Courses
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary"  routerLink="/admin/courses" >
+                  <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+              </mat-expansion-panel>
+            <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-icon class="auto-flip">calendar_today</mat-icon> Sessions
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary" routerLink="/admin/sessions">
+                    <mat-icon class="auto-flip" >label_important</mat-icon>All</button>
+              </mat-expansion-panel>
+              <mat-expansion-panel >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="auto-flip">school</mat-icon> Students
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <button mat-raised-button color="primary"><mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                  <button mat-raised-button color="primary">Create New</button>
+                </mat-expansion-panel>
+              <mat-expansion-panel >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="auto-flip">chrome_reader_mode</mat-icon> Subjects
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <button mat-raised-button color="primary"  routerLink="/admin/subject">
+                    <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                  <mat-accordion>
+                    <mat-expansion-panel >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon class="auto-flip">drag_indicator</mat-icon>  Group
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <button mat-raised-button color="primary"  routerLink="/admin/subject/groups">
+                        <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                      <button mat-raised-button color="primary"  routerLink="/admin/subject/groups/add">
+                        <mat-icon class="auto-flip">add_box</mat-icon>Create New</button>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                              <mat-icon class="auto-flip">list</mat-icon>  Chapter
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <button mat-raised-button color="primary"  routerLink="/admin/subject/chapters">
+                          <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                        <button mat-raised-button color="primary"  routerLink="/admin/subject/chapters/add">
+                          <mat-icon class="auto-flip">add_box</mat-icon>Create New</button>
+                      </mat-expansion-panel>
+                      <mat-expansion-panel >
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="auto-flip">videocam</mat-icon> Videos
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <button mat-raised-button color="primary"  routerLink="/admin/subject/chapters">
+                            <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                          <button mat-raised-button color="primary"  routerLink="/admin/subject/chapters/add">
+                            <mat-icon class="auto-flip">add_box</mat-icon>Create New</button>
+                        </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-expansion-panel>
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-icon class="auto-flip">account_box</mat-icon> Teachers
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary"><mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                <button mat-raised-button color="primary">Create New</button>
+                <button mat-raised-button color="primary">Schedule Class</button>
+                <button mat-raised-button color="primary">Payment</button>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-icon class="auto-flip">assignment_turned_in</mat-icon> Test
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <button mat-raised-button color="primary" routerLink="/admin/tests"><mat-icon class="auto-flip">label_important</mat-icon>All</button>
+              </mat-expansion-panel>
+              
+              <button mat-raised-button color="primary" (click)="drawer.toggle()">
+                  <mat-icon class="auto-flip" >eject</mat-icon>Collapse</button>
+          </mat-accordion>
+    </mat-drawer>
+  <mat-drawer-content class="content">
+    <breadcrumb style="color:black"></breadcrumb>
+    <mat-spinner *ngIf="showLoadingIndicator"></mat-spinner>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+  </mat-drawer-container>

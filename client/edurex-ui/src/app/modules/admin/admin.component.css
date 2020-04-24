@@ -1,0 +1,69 @@
+.admin-dashboard-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .toggle-button {
+    margin-top:25%;
+    display: flex;
+    height: fit-content;
+    align-items: left;
+    justify-content: left;
+    background-color: transparent;
+    border-top-right-radius:50%;
+    border-bottom-right-radius: 50%;
+    z-index : 5
+    
+  }
+
+  .auto-flip
+  {
+    margin-right: 1rem;;
+  }
+  mat-spinner
+  {
+    margin-top:20%;
+    margin-left:50%;
+    z-index : 5;
+  }
+
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .content
+  {
+    margin:5px;
+    padding: 5px;
+    height: 100%;
+    padding-top:12%;
+    padding-left:1%;
+    padding-right:1%;
+    padding-bottom:5%;
+    
+  }
+  
+  .admin-sidenav {
+    padding-top:12%;
+    padding-left:5px;
+    padding-right:5px;
+    width:25%;
+  }
+
+  .admin-sidenav button
+  {
+      width : 95%;
+      padding: 5px;
+      margin : 5px
+  }
+
+  .breadcrumb
+{
+    position:fixed;
+    z-index: 2;
+    top:9%
+}
+ 
+
+
+/* Menu Button Animataion */

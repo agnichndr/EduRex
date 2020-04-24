@@ -1,0 +1,140 @@
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+        <strong>Error!</strong> {{error}}
+      </div>
+      <mat-divider></mat-divider>
+      <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+            <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+            <strong>Success!</strong> {{message}}
+          </div>
+<button  mat-raised-button color="primary" class="new action-button" (click)="showAddBoardForm()">Create New</button>
+<button mat-raised-button color="primary" [matMenuTriggerFor]="bulkmenu" class="action-button">Bulk Action</button>
+<mat-menu #bulkmenu="matMenu">
+    <button mat-menu-item (click)="deleteBoards()">
+        <i class="fas fa-trash"></i>
+      <span> Delete</span>
+    </button>
+  </mat-menu>
+
+<mat-divider></mat-divider>
+
+<mat-card [hidden]="addBoardhidden" class="login">
+        <mat-card-header class="login-hdr">
+            <mat-card-title>
+                <h2>Board Creation</h2>
+            </mat-card-title>
+            <mat-card-subtitle>
+                Field marked * are required.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="login-form">
+            <form #addBoardForm = "ngForm" (ngSubmit)="addBoard()">  
+            <mat-form-field class="form-group"  appearance="outline">
+                <mat-label>Board Id</mat-label>
+                <input name="board_id"  matInput placeholder="Eg: B1" [formControl]="boardidcontrol" required>
+                <mat-hint>Board Id should be unique.</mat-hint>
+                <mat-error>{{getBoardIdErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group" appearance="outline">
+                    <mat-label>Board Name</mat-label>
+                    <input name="board_name" matInput placeholder="Eg: ICSE" [formControl]="boardnamecontrol" required>
+                    <mat-error>{{getBoardNameErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <button class="action-button" mat-raised-button color="accent" type="submit" [disabled]="submitDisabled()">Save</button>
+            <button class="action-button" mat-raised-button color="basic" type="reset">Reset</button>
+            <button type="button" mat-raised-button color="warn" (click)="closeAddBoardForm()">Cancel</button>
+            </form>
+            
+            
+        </mat-card-content>
+    </mat-card>
+
+
+    <mat-card [hidden]="editBoardhidden" class="login">
+            <mat-card-header class="login-hdr">
+                <mat-card-title>
+                    <h2>Board Update</h2>
+                    <h4>Id : {{selectedBoard.board_id}}</h4>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Field marked * are required.
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="login-form">
+                <form #editBoardForm = "ngForm" (ngSubmit)="editBoard()">  
+                <mat-form-field class="form-group" appearance="outline">
+                        <mat-label>Board Name</mat-label>
+                        <input name="edited_board_name" [(ngModel)]="selectedBoard.board_name" matInput placeholder="Eg: ICSE" [formControl]="editboardnamecontrol" required>
+                        <mat-error>{{getEditBoardNameErrorMessage()}}</mat-error>
+                </mat-form-field>
+                <button class="action-button" mat-raised-button color="accent" type="submit" [disabled]="updateDisabled()">Update</button>
+                <button type="button" mat-raised-button color="warn" (click)="closeEditBoardForm()">Cancel</button>
+                </form>
+                
+                
+            </mat-card-content>
+        </mat-card>
+
+
+
+
+
+
+        <div class="filter">
+         <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ICSE">
+          </mat-form-field>
+        </div>
+    <div>  
+        
+        <div class="paginator">
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
+          </div>
+<table matSort  mat-table [dataSource]="dataSource" class="mat-elevation-z8 board-table">
+
+
+    <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+
+
+
+    <ng-container matColumnDef="board_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Board Id </th>
+      <td mat-cell *matCellDef="let board"> {{board.board_id}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="board_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Board Name </th>
+      <td mat-cell *matCellDef="let board"> {{board.board_name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef color="primary"> Action</th>
+        <td mat-cell *matCellDef="let board">
+            <button class="action-button" mat-mini-fab color="accent" [disabled]="editDisable" (click)="showEditBoardForm(board)"><i class="fas fa-edit"></i></button>
+            <button  class="action-button" mat-mini-fab color="warn" (click) = "deleteBoard(board._id,board.board_id,board.board_name)"> <i class="fas fa-trash"></i></button>
+         </td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </div>

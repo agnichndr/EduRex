@@ -1,0 +1,54 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .sidenav
+  {
+      max-height: 100%;
+      width:25%;
+      padding-top: 10%;
+  }
+
+  .mat-mini-fab
+  {
+      margin: 1rem;
+      text-align: center;
+  }
+
+  .mat-raised-button
+  {
+      width : 95%;
+      padding: 2%;
+      margin: 2%;
+  }
+  .auto-flip
+  {
+      margin-right: 1rem;
+  }
+
+  .create-new
+  {
+      position: fixed;
+      bottom: 5%;
+      left : 65%;
+      top :85%;
+  }
+
+  mat-card
+  {
+      padding: 1rem;
+      margin: 1rem;
+      border-radius: 5px;
+  }
+
+  mat-card mat-card-header
+  {
+      background-color: coral;
+      border-radius: 5px;
+      padding: 1rem;
+
+  }

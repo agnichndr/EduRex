@@ -1,0 +1,27 @@
+.navbar
+{
+    position: fixed;
+    z-index: 3;
+    top:0;
+}
+
+.btn
+{
+    color : white;
+    padding: 0 14px;
+    
+}
+
+.btn .login-button
+{
+    background-color: coral;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.fas 
+{
+    font-size : 25px;
+}

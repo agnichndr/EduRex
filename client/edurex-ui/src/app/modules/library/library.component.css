@@ -1,0 +1,29 @@
+mat-drawer-container
+{
+    height: 100%;
+}
+
+.breadcrumb
+{
+    position:fixed;
+    z-index: 2;
+    top:9%;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    display: flex;
+}
+ 
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.auto-flip
+{
+    font-size: 30px;
+    display: inline;
+}
+
+h1{
+    font-size: 40px;
+}
