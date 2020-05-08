@@ -5,7 +5,7 @@ var fileUpload = require('express-fileupload');
 var app = express();
 var mongoose = require('mongoose')
 var port = process.env.PORT || 3000
-
+var path = require('path');
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -23,7 +23,6 @@ mongoose.connect(mongoURI, {useNewUrlParser:true})
 
 
 
-
 var Users = require('./routes/Users');
 var Boards = require('./routes/Boards');
 var Class = require('./routes/Class');
@@ -33,7 +32,9 @@ var Group = require('./routes/Groups');
 var Assessment = require('./routes/Assessments');
 var Chapter = require('./routes/Chapters');
 var LibraryCategory = require('./routes/LibraryCategories')
+var Book = require('./routes/Books');
 
+app.use('/thumbnail',express.static(path.join(__dirname, 'uploads/library/cover-photos/')));
 app.use('/users', Users);
 app.use('/boards', Boards);
 app.use('/class', Class);
@@ -43,6 +44,8 @@ app.use('/subject-groups',Group);
 app.use('/assessments',Assessment);
 app.use('/chapters',Chapter);
 app.use('/library/category',LibraryCategory);
+app.use('/library/books',Book);
+
 
 
 app.listen(port, function()

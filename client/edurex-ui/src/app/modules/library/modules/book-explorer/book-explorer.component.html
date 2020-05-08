@@ -11,9 +11,9 @@
                             {{category.book_category}}
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                        <button mat-raised-button color = "primary"> <mat-icon class="auto-flip">import_contacts</mat-icon>All</button>
+                        <button routerLink = "/e-library/book-explorer/list/{{category.book_category}}/all" mat-raised-button color = "primary"> <mat-icon class="auto-flip">import_contacts</mat-icon>All</button>
                         <section *ngFor = "let subcat of category.book_subCategory">
-                                <button mat-raised-button color = "accent"> <mat-icon class="auto-flip">category</mat-icon>{{subcat}}</button>
+                                <button routerLink = "/e-library/book-explorer/list/{{category.book_category}}/{{subcat}}" mat-raised-button color = "accent"> <mat-icon class="auto-flip">category</mat-icon>{{subcat}}</button>
                         </section>
                     
                 </mat-expansion-panel>
@@ -43,6 +43,7 @@
             </mat-card>
         </mat-sidenav>
         <div style="margin-top:20%">
+            <breadcrumb style="color:black"></breadcrumb>
             <router-outlet></router-outlet>
         </div>
         <button routerLink="/e-library/book-explorer/create-new" mat-fab color="accent" class="create-new"><mat-icon>add</mat-icon></button>

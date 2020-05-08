@@ -30,16 +30,22 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import {MatTabsModule} from '@angular/material/tabs';
+import {NgBreadcrumbModule} from 'ng-breadcrumb';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { LibraryRoutingModule } from '../../library-routing.module';
 import { CreateNewBooksComponent } from './components/create-new-books/create-new-books.component';
 import { BookExplorerRoutingModule } from './book-explorer.routing.module';
+import { DisplayBookComponent } from './components/display-book/display-book.component';
+import { ViewBookComponent } from './components/view-book/view-book.component';
+
 
 @NgModule({
   declarations: [BookExplorerComponent,
-                  CreateNewBooksComponent],
+                  CreateNewBooksComponent,
+                DisplayBookComponent,
+              ViewBookComponent],
   imports: [
     CommonModule,
     MatSliderModule,
@@ -66,6 +72,7 @@ import { BookExplorerRoutingModule } from './book-explorer.routing.module';
     MaterialFileInputModule,
     MatProgressBarModule,
     NgxMatSelectSearchModule,
+    NgBreadcrumbModule,
     MatGridListModule,
     MatProgressSpinnerModule,
     BookExplorerRoutingModule,

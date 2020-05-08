@@ -6,9 +6,12 @@
       </button>
     </span>
     <span class="example-spacer"></span>
-    <span><button type="button" mat-raised-button  target="_blank" color="accent">
+    <span style="margin-right : 1%"><button type="button" mat-raised-button  target="_blank" color="accent">
       <mat-icon class="auto-flip" color="primary">wb_cloudy</mat-icon>
       <a  href="/e-library/home" target="_blank" style="color:white">e-Library</a></button></span>
+      <span><button type="button" mat-raised-button  target="_blank" color="accent">
+          <mat-icon class="auto-flip" color="primary">account_tree</mat-icon>
+          <a  href="#" target="_blank" style="color:white">Role Management</a></button></span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -55,6 +58,15 @@
                 <button mat-raised-button color="primary"  routerLink="/admin/courses" >
                   <mat-icon class="auto-flip">label_important</mat-icon>All</button>
               </mat-expansion-panel>
+              <mat-expansion-panel >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <mat-icon class="auto-flip">wc</mat-icon>Parents
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <button mat-raised-button color="primary"  routerLink="/admin/courses" >
+                    <mat-icon class="auto-flip">label_important</mat-icon>All</button>
+                </mat-expansion-panel>
             <mat-expansion-panel >
                 <mat-expansion-panel-header>
                   <mat-panel-title>

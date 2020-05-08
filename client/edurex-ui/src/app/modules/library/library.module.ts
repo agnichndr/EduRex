@@ -54,7 +54,12 @@ import { BookExplorerRoutingModule } from './modules/book-explorer/book-explorer
   CategoryComponent,
     
     
-  LibraryHomeComponent],
+  LibraryHomeComponent,
+    
+
+    
+    
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

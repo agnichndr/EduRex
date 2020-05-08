@@ -1,9 +1,26 @@
+
 <mat-card class="bookForm" >
+    <div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+        <strong>Error!</strong> {{error}}
+      </div>
+      <mat-divider></mat-divider>
+      <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+            <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+            <strong>Success!</strong> {{message}}
+          </div>
+          <br>
     <mat-card-header class="header">
         <mat-card-title><h2>Add an Article/Book to  your e-Library</h2></mat-card-title>
         <mat-card-subtitle>All fields marked * are required</mat-card-subtitle>
     </mat-card-header>
-<form [formGroup]="createBookForm"  >
+<form [formGroup]="createBookForm" (ngSubmit)="addArticle()" >
+    <mat-form-field class="form-group" appearance="outline" style="width: 90%;">
+        <mat-label>Book/Article Id</mat-label>
+        <input matInput formControlName="book_id" required placeholder="Enter a book or article Id" >
+        <mat-error *ngIf="book_id.hasError('required')">Value is required</mat-error>
+        <mat-error *ngIf="book_id.hasError('pattern')">Book Id should start with an alphabet and it should not contain any space or special characters.</mat-error>
+    </mat-form-field>
     <mat-form-field class="form-group" appearance="outline">
         <mat-label>Book/Article Name</mat-label>
         <input matInput formControlName="name" required placeholder="Enter a book or article name" >
@@ -52,15 +69,28 @@
                       </mat-form-field><br>
                       <mat-form-field class="form-group" style=" width: 90%;"  appearance="outline">
                         <mat-label>Article/Book </mat-label>
-                        <ngx-mat-file-input  accept=".doc,.pdf,.docx,.ppt,.pptx"  placeholder="Browse Documents" required ></ngx-mat-file-input>
+                        <ngx-mat-file-input [formControl]="book" accept=".doc,.pdf,.docx,.ppt,.pptx"  placeholder="Browse Documents" 
+                        (change)="onSelectBook($event)" required ></ngx-mat-file-input>
                         <mat-hint>Documnent can only be  in .pdf, .ppt or .doc format </mat-hint>
+                        <mat-error *ngIf="cover.hasError('required')">
+                          Please select a file
+                        </mat-error>
+                        <mat-error *ngIf="cover.hasError('maxContentSize')">
+                          The total size must not exceed 100 MB).
+                        </mat-error>
                       </mat-form-field>
-               
+                      <mat-progress-bar mode="determinate" value="{{docprogress}}"></mat-progress-bar>
                     <mat-form-field class="form-group" style=" width: 30%; display: inline-block; margin-right: 100px;"  appearance="outline">
                             <mat-label>Thumbnail Image</mat-label>
-                            <ngx-mat-file-input  accept=".jpg,.jpeg"  placeholder="Browse Image"
+                            <ngx-mat-file-input formControlName="cover" accept=".jpg,.jpeg"  placeholder="Browse Image"
                             (change)="onSelectThumbnail($event)" required ></ngx-mat-file-input>
                             <mat-hint>Images in .jpg, .jpeg  only allowed </mat-hint>
+                            <mat-error *ngIf="cover.hasError('required')">
+                              Please select a file
+                            </mat-error>
+                            <mat-error *ngIf="cover.hasError('maxContentSize')">
+                              The total size must not exceed 1 MB).
+                            </mat-error>
                           </mat-form-field>
                     
                     <img style="height: 200px; width: 150px;"  mat-card-image src="{{url}}" alt="Chapter Photo"><br>
@@ -68,8 +98,20 @@
                                     <mat-progress-bar mode="determinate" value="{{thumbnailprogress}}"></mat-progress-bar>
                     <br>
 
-                    <button type="submit" mat-raised-button style="margin-right: 1rem;" color="accent">Save</button>
+                    <button type="submit" mat-raised-button style="margin-right: 1rem;" color="accent"
+                    [disabled]="submitDisabled()">Save</button>
                     <button type="reset" mat-raised-button>Reset</button>
 
 </form>
+<br>
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+    <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+        <strong>Success!</strong> {{message}}
+      </div>
 </mat-card>
+

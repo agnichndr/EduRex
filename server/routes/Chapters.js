@@ -2,11 +2,7 @@
 
 const express = require('express');
 const chapters = express.Router();
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const path = require('path');
-const fileUpload = require('express-fileupload');
+
 
 
 const Chapter = require('../models/Chapter');
