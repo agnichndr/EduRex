@@ -8,6 +8,10 @@
 
 	1. open a terminal in server directory  and run the following command 
 	 --   npm run dev
+	 
+	 1.a Create a local database in mongo db named edurexdb 
+	 	----------- OR --------------
+	b. Create a db of your own name and go to server/server.js and set your database path to the variable mongoURI
 
 	 wait for the Database Connected and Server Running Message.
 
