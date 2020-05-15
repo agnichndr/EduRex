@@ -16,6 +16,8 @@ import { NewChapterComponent } from './components/admin/chapter/new-chapter/new-
 import { AllChapterComponent } from './components/admin/chapter/all-chapter/all-chapter.component';
 import { LibraryComponent } from '../library/library.component';
 import { CategoryComponent } from '../library/components/category/category.component';
+import { EditChapterComponent } from './components/admin/chapter/edit-chapter/edit-chapter.component';
+import { NewAssessmentComponent } from './components/admin/assessment/new-assessment/new-assessment.component';
 
 
 
@@ -23,6 +25,7 @@ const routes: Routes = [
   { path: 'admin', component : AdminComponent ,children : [
   {path : '', redirectTo : '/dashboard/', pathMatch : 'full' },
   { path: 'dashboard', component: HomeComponent },
+  {path : 'assessment/add',component : NewAssessmentComponent},
   { path : 'boards' ,component : BoardComponent},
   {path : 'class', component : ClassComponent},
   {path : 'subject', component : SubjectComponent},
@@ -31,6 +34,7 @@ const routes: Routes = [
   {path : 'subject/groups/edit/:id', component : EditgroupComponent},
   {path : 'sessions', component: SessionComponent},
   {path : 'library', component : ELibraryComponent },
+  {path : 'subject/chapters/edit/:id', component: EditChapterComponent},
   {path : 'subject/chapters/add', component : NewChapterComponent},
   {path : 'subject/chapters', component : AllChapterComponent},
 ]},

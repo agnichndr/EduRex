@@ -9,11 +9,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute } from '@angular/router';
 import { BindingFlags } from '@angular/compiler/src/core';
+import { ExportXLS } from '../../../export-xls';
 
 @Component({
   selector: 'app-session',
   templateUrl: './session.component.html',
-  styleUrls: ['./session.component.css']
+  styleUrls: ['./session.component.css'],
+  providers :[ExportXLS]
 })
 export class SessionComponent implements OnInit {
 
@@ -371,6 +373,10 @@ export class SessionComponent implements OnInit {
         this._snackBar.open("Error! Error in setting current session",null,{duration : 5000});
       }
     )
+  }
+
+  exportTable() {
+    ExportXLS.exportTableToExcel("SessionTable", "Sessions");
   }
 
 }

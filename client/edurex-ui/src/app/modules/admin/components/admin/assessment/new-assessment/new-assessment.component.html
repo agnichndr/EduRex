@@ -1,0 +1,170 @@
+
+<mat-card class="bookForm" >
+    <div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+        <strong>Error!</strong> {{error}}
+      </div>
+      <mat-divider></mat-divider>
+      <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+            <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+            <strong>Success!</strong> {{message}}
+          </div>
+          <br>
+    <mat-card-header class="header">
+        <mat-card-title><h2>Create an Assessment</h2></mat-card-title>
+        <mat-card-subtitle>All fields marked * are required</mat-card-subtitle>
+    </mat-card-header>
+<form [formGroup]="createAssessmentForm" (ngSubmit)="addAss()">
+    <mat-form-field class="form-group" appearance="outline" style="width: 45%;">
+        <mat-label>Assessment Id</mat-label>
+        <input matInput formControlName="id" required placeholder="Enter a book or article Id" >
+        <mat-error *ngIf="id.hasError('required')">Value is required</mat-error>
+        <mat-error *ngIf="id.hasError('pattern')">Assessment Id should start with an alphabet and it should not contain any space or special characters.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group" appearance="outline" style="width : 45%">
+        <mat-label>Assessment Name</mat-label>
+        <input matInput formControlName="name" required placeholder="Enter an assessment name" >
+        <mat-hint>Assessment name should not exceed more than 200 characters</mat-hint>
+        <mat-hint align="end">{{name.value?.length || 0}}/200</mat-hint>
+        <mat-error *ngIf="name.hasError('required')">Value is required</mat-error>
+        <mat-error *ngIf="name.hasError('maxlength')">Character Limit Exceeded</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group" appearance="outline" style="width: 90%;">
+        <mat-label>Short Description</mat-label>
+        <textarea matInput formControlName="short" required placeholder="Enter Abstract/Description/Introduction of the content" ></textarea>
+        <mat-hint>Description should not exceed more than 200 characters</mat-hint>
+        <mat-hint align="end">{{description.value?.length || 0}}/200</mat-hint>
+        <mat-error *ngIf="short.hasError('required')">Value is required</mat-error>
+        <mat-error *ngIf="short.hasError('maxlength')">Character Limit Exceeded</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group" appearance="outline" style="width: 90%;">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Enter Abstract/Description/Introduction of the content" ></textarea>
+        <mat-hint>Description should not exceed more than 500 characters</mat-hint>
+        <mat-hint align="end">{{description.value?.length || 0}}/500</mat-hint>
+        <mat-error *ngIf="description.hasError('maxlength')">Character Limit Exceeded</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-group" appearance="outline" style="width: 45%;">
+        <mat-label>Choose Assessment Start date</mat-label>
+        <input matInput formControlName="start_date" [matDatepicker]="picker" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+        <mat-error *ngIf="start_date.hasError('required')">Value is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group" appearance="outline" style="width: 45%;">
+        <mat-label>Choose Assessment start time</mat-label>
+        <input matInput formControlName="start_time" [ngxTimepicker]="toggleIcon" [disableClick]="true" readonly>
+            <ngx-material-timepicker-toggle  matSuffix [for]="toggleIcon">
+                <mat-icon>query_builder</mat-icon>
+            </ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleIcon [enableKeyboardInput]="true"></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field class="form-group" appearance="outline" style="width: 45%;">
+        <mat-label>Choose Assessment End date</mat-label>
+        <input matInput formControlName="end_date" [matDatepicker]="pickerEnd" readonly required>
+        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #pickerEnd disabled="false"></mat-datepicker>
+        <mat-error *ngIf="end_date.hasError('required')">Value is required</mat-error>
+        <mat-error >Assessment End Date should be greater than or equal to start date</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group" appearance="outline" style="width: 45%;">
+        <mat-label>Choose Assessment end time</mat-label>
+        <input matInput formControlName="end_time" [ngxTimepicker]="toggleIconEnd" [disableClick]="true" readonly required>
+            <ngx-material-timepicker-toggle  matSuffix [for]="toggleIconEnd">
+                <mat-icon>query_builder</mat-icon>
+            </ngx-material-timepicker-toggle>
+            <ngx-material-timepicker #toggleIconEnd [enableKeyboardInput]="true"></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field class="form-group" appearance="outline" style="width : 45%">
+        <mat-label>Assessment Full Marks</mat-label>
+        <input matInput type="number" formControlName="full_marks" required placeholder="Enter assessment full marks" >
+        <mat-hint>Assessment full marks should be in range 0 to 99999</mat-hint>
+        <mat-error *ngIf="name.hasError('required')">Value is required</mat-error>
+        <mat-error *ngIf="full_marks.hasError('max')">Maximum Limit Exceeded</mat-error>
+        <mat-error *ngIf="full_marks.hasError('min')">Minimum Limit Exceeded</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group" appearance="outline" style="width : 45%">
+        <mat-label>Class</mat-label>
+        <mat-select formControlName="class" required (ngModelChange)="getChapterlist($event,'class')"
+         placeholder="Enter class to be assigned for assessment" >
+            <mat-option *ngFor="let cls of classess" [value]="cls.class_name">
+                    {{cls.class_name}}
+            </mat-option>
+            </mat-select>
+        <mat-error *ngIf="class.hasError('required')">Value is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-group" appearance="outline" style="width : 45%">
+            <mat-label>Subject</mat-label>
+            <mat-select formControlName="subject" required (ngModelChange)="getChapterlist($event,'subject')"
+            placeholder="Enter subject to be assigned for assessment" >
+                <mat-option *ngFor="let sub of subjects" [value]="sub.subject_name">
+                        {{sub.subject_name}}
+                </mat-option>
+                </mat-select>
+            <mat-error *ngIf="subject.hasError('required')">Value is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group" appearance="outline" style="width : 45%" [hidden]="ishidden">
+                <mat-label>Chapter</mat-label>
+                <mat-select multiple formControlName="chapter" 
+                 >
+                    <mat-option *ngFor="let chapter of chapters" [value]="chapter">
+                            {{chapter.chapter_name}}
+                    </mat-option>
+                    </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-group" style=" width: 90%;"  appearance="outline">
+                    <mat-label>Question</mat-label>
+                    <ngx-mat-file-input #removable [formControl]="question" accept=".doc,.pdf,.docx,.ppt,.pptx,.xls,.xlsx"  placeholder="Browse Documents" 
+                    (change)="onSelectQuestion($event)" required ></ngx-mat-file-input>
+                    <button mat-icon-button matSuffix *ngIf="!removable.empty" (click)="removable.clear($event)">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                    <mat-hint>Documnent can only be  in .pdf, .ppt,.xls or .doc format  </mat-hint>
+                    <mat-error *ngIf="question.hasError('required')">
+                      Please select a file
+                    </mat-error>
+                    <mat-error *ngIf="question.hasError('maxContentSize')">
+                      The total size must not exceed 100 MB).
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-progress-bar mode="determinate" value=""></mat-progress-bar>
+
+                  <mat-form-field class="form-group" style=" width: 90%;"  appearance="outline">
+                        <mat-label>Answer</mat-label>
+                        <ngx-mat-file-input #removableAns formControlName="answer" accept=".doc,.pdf,.docx,.ppt,.pptx,.xls,.xlsx"  placeholder="Browse Documents" 
+                        (change)="onSelectAns($event)" required ></ngx-mat-file-input>
+                        <button mat-icon-button matSuffix *ngIf="!removableAns.empty" (click)="removableAns.clear($event)">
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        <mat-hint>Documnent can only be  in .pdf, .ppt, .xls or .doc format </mat-hint>
+                        <mat-error *ngIf="answer.hasError('required')">
+                          Please select a file
+                        </mat-error>
+                        <mat-error *ngIf="answer.hasError('maxContentSize')">
+                          The total size must not exceed 100 MB).
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-progress-bar mode="determinate" value="{{ansprogress}}"></mat-progress-bar>
+                    <br>
+
+                    <button type="submit" mat-raised-button style="margin-right: 1rem;" color="accent"
+                    [disabled]="false">Save</button>
+                    <button type="reset" mat-raised-button>Reset</button>
+
+</form>
+<br>
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+    <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+        <strong>Success!</strong> {{message}}
+      </div>
+</mat-card>
+

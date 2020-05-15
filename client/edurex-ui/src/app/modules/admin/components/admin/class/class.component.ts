@@ -8,12 +8,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ClassService } from '../../../service/class.service';
 import { Class } from '../../../models/Class';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ExportXLS } from '../../../export-xls';
+import * as XLSX from "xlsx";
 
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
   styleUrls: ['./class.component.css'],
-  providers : [ClassService]
+  providers : [ClassService,ExportXLS]
 })
 export class ClassComponent implements OnInit {
 
@@ -346,5 +348,9 @@ export class ClassComponent implements OnInit {
         }
       )
   }
+}
+
+exportTable() {
+  ExportXLS.exportTableToExcel("ClassTable", "Classes");
 }
 }

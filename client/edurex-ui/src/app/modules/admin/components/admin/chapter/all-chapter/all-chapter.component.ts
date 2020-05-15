@@ -50,20 +50,7 @@ export class AllChapterComponent implements OnInit {
       }
     )
 
-    // this.filteredClassList = this.classFormControl.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     map(value => this.class_filter(value))
-    //   );
-
-    //   console.log(JSON.stringify(this.filteredClassList));
-  }
-
-  // private class_filter(value: string): Class[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   return this.classList.filter(option => option.class_name.toLowerCase().includes(filterValue));
-  // }
+    }
 
   loadChapter()
   {
@@ -84,6 +71,29 @@ export class AllChapterComponent implements OnInit {
     )
   }
 
+  deleteChapter(id : String)
+  {
+    var res= confirm("Are you sure you want to delete this chapter");
+    if(res)
+    {
+    this.chapterService.deleteChapter(id).subscribe(
+      data=>{
+        if(!JSON.parse(JSON.stringify(data))['err'])
+        {
+          this._snackBar.open(JSON.parse(JSON.stringify(data))['msg'],null,{duration:5000});
+          this.loadChapter();
+        }
+        else{
+          this._snackBar.open(JSON.parse(JSON.stringify(data))['err'],null,{duration:5000});
+        }
+      },
+      err=>{
+        this._snackBar.open("Server Error !  Error in deleting the chapter",null,{duration:5000});
+      }
+    )
+    }
+  }
+
   class_filter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredClassList = this.classList.filter(value => value.class_name.toLowerCase().includes(filterValue.toLowerCase()))
@@ -93,5 +103,6 @@ export class AllChapterComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filteredSubjectList = this.subjectList.filter(value => value.subject_name.toLowerCase().includes(filterValue.toLowerCase()))
   }
+  
 
 }

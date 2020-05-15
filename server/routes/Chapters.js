@@ -7,46 +7,17 @@ const chapters = express.Router();
 
 const Chapter = require('../models/Chapter');
 
+//get chapter by id
 
-
-//Create a disk Storage object 
-
-// var storage = multer.diskStorage(
-//     {
-//         destination : function(req,file,cb)
-//         {
-//             cb(null,'uploads/')
-//         },
-//         filename : function(req,file,cb)
-//         {
-//             cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname) );
-//         }
-//     }
-
-// )
-
-// var upload = multer(
-//     {
-//         storage : storage,
-//         fileFilter : function(req,file,cb)
-//         {
-//             if(file.mimetype == "image/jpg" ||
-//             file.mimetype == "image/png" || 
-//             file.mimetype == "image/jpeg")
-//             {
-//                 cb(null,true)
-//             }
-//             else{
-//                 cb(null,false)
-//             }
-//         },
-//         limits : 
-//         {
-//            fileSize : 1024*1024*1 // !1 MB file 
-//         }
-        
-//     }
-// )
+chapters.get('/get/:id', (req,res,next)=>{
+    Chapter.findOne({chapter_id : req.params.id}).then(
+        data=>{
+            res.json(data);
+        }
+    ).catch(err=>{
+        res.json({"err":"Error in loading chapter"});
+    })
+})
 
 // get the list of chapters subject and class wise 
 
@@ -71,13 +42,6 @@ chapters.get('/list/:chapter_subject/:chapter_class', (req,res,next)=>
 
 chapters.post('/add',(req, res, next)=>
 {
-    let File = null;
-    
-    if(req.files)
-    {
-        File = req.files['chapter_image'];
-        
-    }
     let newChapter = new Chapter(
         {
             chapter_id : req.body.chapter_id,
@@ -85,8 +49,6 @@ chapters.post('/add',(req, res, next)=>
             chapter_description : req.body.chapter_description,
             chapter_subject : req.body.chapter_subject,
             chapter_class : req.body.chapter_class,
-            chapter_referrence_book : req.body.chapter_referrence_book,
-            image_source : "assets/images/img.png",
             active : true,
         }
     );
@@ -97,18 +59,6 @@ chapters.post('/add',(req, res, next)=>
    }).then ( result => {
        if(!result)
        {
-            if(File)
-            {
-                    let name = File.name.split(".");
-                    let stored_name=req.body.chapter_id+"-"+Date.now()+"."+ name[name.length-1];
-                    File.mv("./uploads/chapter-images/"+stored_name, 
-                    (err)=>{
-                        if(err)
-                        {
-                            res.json({"err" : "Error in uploading Image. Image size should be less than 1 MB"})
-                        }
-                        })
-            }
 
             Chapter.create(newChapter)
             .then(data=>
@@ -136,85 +86,44 @@ chapters.post('/add',(req, res, next)=>
 })
 
 
-//Upload a Chapter Image
-// chapters.post('/upload',upload.single('image') ,(req, res, next) =>
-// {
-//     if(req.file)
-//     {
-//         res.json(req.file.path);
-//     }
-//     else
-//     {
-//         res.json("error");
-//     }
-   
-// });
+//edit chapter 
+chapters.put("/update/:id",(req,res,next)=>{
 
-// //edit a board
-// boards.put("/update/:id/:board_id",(req,res,next)=>{
+    Chapter.findOneAndUpdate({chapter_id : req.params.id},
+        {$set :
+        {
+            chapter_name : req.body.chapter_name,
+            chapter_description : req.body.chapter_description,
+            chapter_subject : req.body.chapter_subject,
+            chapter_class : req.body.chapter_class,
+        }})
+        .then(data =>
+            {
+                res.json({"msg" : "Chapter with id " + req.params.id + " has been successfully updated"});
+            })
+            .catch(err => {
+                res.json({"err" : "Error in updating Chapter to Edurex Database. " });
+            })
+})
 
-//     Board.findOneAndUpdate({_id : req.params.id},
-//         {$set :
-//         {
-//             _id : req.params.id,
-//             board_id : req.params.board_id,
-//             board_name : req.body.board_name,
-//             active : true,
-//         }})
-//         .then(data =>
-//             {
-//                 res.json({"msg" : "Board with id " + data.board_id + " has been successfully updated"});
-//             })
-//             .catch(err => {
-//                 res.json({"err" : "Error in updating Board to Edurex Database. " });
-//             })
-// })
+//delete a chapter
+chapters.put('/remove/:id',(req,res,next)=>{
+    Chapter.findOneAndUpdate({chapter_id:req.params.id},
+        {
+            $set : {
+                active : false
+            }
+        }).then(
+            data=>{
+                res.json({"msg":"Chapter with id :"+ req.params.id + "has been successfully deleted"});
+            }
+        ).catch(
+            err=>{
+                res.json({"err":"Error in deleting Chapter from Edurex database"});
+            }
+        )
+})
 
-// //remove a board
-// boards.put("/remove/:id",(req,res,next)=>{
-
-//     Board.findOneAndUpdate({_id : req.params.id},
-//         {$set :
-//         {
-//             _id : req.params.id,
-//             board_id : req.body.board_id,
-//             board_name : req.body.board_name,
-//             active : false,
-//         }})
-//         .then(data =>
-//             {
-//                 res.json({"msg" : "Board with id " + data.board_id + " has been successfully deleted"});
-//             })
-//             .catch(err => {
-//                 res.json({"err" : "Error in deleting Board to Edurex Database. " });
-//             })
-// })
-
-// // remove many boards
-// boards.put("/selected/remove/:n",(req,res,next)=>
-// {
-//     id = [];
-//     for(var i = 0 ; i < req.params.n ; i++)
-//     {
-//         id.push(req.body[i].board_id)
-//     }
-   
-//     Board.updateMany(
-//         {
-//            board_id : { $in : id}
-//         },
-//         {
-//             active : false
-//         }
-//     ).then(
-//         data => {
-//             res.json({"msg": req.params.n + " boards has been successfully deleted"});
-//         }
-//     ).catch(err=>
-//         {
-//             res.json({"err": "Error in deleting "+req.params.n+" boards. Please try after few minutes." + err})
-//         })
-// });
 
 
 module.exports = chapters;

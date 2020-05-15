@@ -44,6 +44,7 @@ import { BookExplorerModule } from './modules/book-explorer/book-explorer.module
 import { BookExplorerRoutingModule } from './modules/book-explorer/book-explorer.routing.module';
 
 
+
 @NgModule({
   declarations: [
     
@@ -54,11 +55,7 @@ import { BookExplorerRoutingModule } from './modules/book-explorer/book-explorer
   CategoryComponent,
     
     
-  LibraryHomeComponent,
-    
-
-    
-    
+  LibraryHomeComponent,    
   ],
   imports: [
     BrowserModule,

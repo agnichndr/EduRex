@@ -7,6 +7,8 @@ import {MatSort} from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { BoardService } from '../../../service/board.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ExportXLS } from '../../../export-xls';
+import * as XLSX from "xlsx";
 
 
 
@@ -14,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
-  providers : [BoardService]
+  providers : [BoardService,ExportXLS]
   
 })
 export class BoardComponent implements OnInit, OnChanges,DoCheck {
@@ -43,7 +45,8 @@ export class BoardComponent implements OnInit, OnChanges,DoCheck {
   
   dataSource: MatTableDataSource<Board>;
   
-  constructor(private boardservice : BoardService,private _snackbar : MatSnackBar) { 
+  constructor(private boardservice : BoardService,private _snackbar : MatSnackBar,
+    private exportToXls : ExportXLS) { 
     this.boardList = [];
     this.error = null;
     this.message = null;
@@ -350,6 +353,10 @@ export class BoardComponent implements OnInit, OnChanges,DoCheck {
         }
       )
   }
+}
+
+exportTable() {
+  ExportXLS.exportTableToExcel("BoardTable", "Boards");
 }
 
 }

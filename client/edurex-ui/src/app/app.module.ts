@@ -30,6 +30,9 @@ import { MatInputModule } from '@angular/material/input';
 import { LibraryRoutingModule } from './modules/library/library-routing.module';
 import { LibraryModule } from './modules/library/library.module';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -62,12 +65,13 @@ import {MatTreeModule} from '@angular/material/tree';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatCardModule,
-
+    MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AdminModule,
     LibraryModule,
+    NgbModule,
 
 
 

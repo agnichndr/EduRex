@@ -29,7 +29,7 @@ const bookSchema = new schema(
            type : String,
            required : true,
        },
-       sub_category: 
+       subcategory: 
        {
            type : String,
        },
@@ -39,6 +39,20 @@ const bookSchema = new schema(
            required : true,
        },
        thumbnail_source :
+       {
+           type : String,
+       },
+       publisher : 
+       {
+           type : String,
+           required : true
+       },
+       subscription :
+       {
+           type : String,
+           required : true
+       },
+       language : 
        {
            type : String,
        },
@@ -58,17 +72,17 @@ const bookSchema = new schema(
             required : true,
             default : 0 
        },
-       total_like : 
-       {
-            type : Number,
-            required : true,
-            default : 0 
-       },
        total_dislike : 
        {
             type : Number,
             required : true,
             default : 0 
+       },
+       total_download : 
+       {
+           type : Number,
+           required : true,
+           default : 0
        },
        total_rating : 
        {
@@ -81,6 +95,11 @@ const bookSchema = new schema(
             type : Number,
             required : true,
             default : 0 
+       },
+       type :
+       {
+           type:String,
+           required : true,
        },
        active : 
        {

@@ -7,11 +7,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SubjectService } from '../../../service/subject.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ExportXLS } from '../../../export-xls';
 
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
-  styleUrls: ['./subject.component.css']
+  styleUrls: ['./subject.component.css'],
+  providers:[ExportXLS]
 })
 export class SubjectComponent implements OnInit,OnChanges, DoCheck {
   subjectList : Subject[];
@@ -347,4 +349,7 @@ export class SubjectComponent implements OnInit,OnChanges, DoCheck {
   }
   }
 
+  exportTable() {
+    ExportXLS.exportTableToExcel("SubjectTable", "Subjects");
+  }
 }

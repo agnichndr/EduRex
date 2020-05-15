@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder,FormControl, Validators } from '@angular/forms';
 import { LibraryCategoryService } from '../../service/library-category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -12,6 +12,7 @@ export class CategoryComponent implements OnInit {
 
   articleCategories = [];
   subscriptionCategories = [];
+  config_params;
   header_color = ["#bbf2c9","#f4b5f5","#b6e4f0","#f08873","#f0e54f","#79912a","#4a6a87","#ab653f"]
   constructor(private formBuilder : FormBuilder,private libCategoryService : LibraryCategoryService,
     private _snackbar : MatSnackBar) { }
@@ -19,8 +20,17 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.getSubscriptionCategories();
+    this.getConfigValues();
   }
 
+  configForm = this.formBuilder.group(
+    {
+      release : [0,Validators.required],
+      img_size : [0,Validators.required],
+      doc_size : [0,Validators.required],
+    }
+  )
+  
   articleCategoryForm = this.formBuilder.group({
     category_name : ['',[Validators.required,Validators.maxLength(100)]]
   }
@@ -82,6 +92,71 @@ export class CategoryComponent implements OnInit {
   {
     return this.articleSubCategoryForm.get('subcategory_name');
   }
+
+  get release()
+  {
+    return this.configForm.get('release');
+  }
+
+  
+  get img_size()
+  {
+    return this.configForm.get('img_size');
+  }
+
+  
+
+  get doc_size()
+  {
+    return this.configForm.get('doc_size');
+  }
+
+  
+
+  getConfigValues()
+  {
+    this.libCategoryService.getConfigParameters().subscribe(
+      data=>{
+        if(!JSON.parse(JSON.stringify(data))['err'])
+        {
+          this.config_params = data[0];
+          this.configForm.patchValue({
+            release : this.config_params.release,
+            img_size : this.config_params.img_size,
+            doc_size : this.config_params.doc_size,
+          })
+        }
+        else
+        {
+          this._snackbar.open(JSON.parse(JSON.stringify(data))['err'],null,{duration : 5000})
+        }
+      },
+      err=>{
+        this._snackbar.open("Error in Loading Library Config Parameters",null,{duration : 5000})
+      }
+    )
+  }
+
+  setConfigValues()
+  {
+    this.libCategoryService.setConfigParameter(this.configForm.value).subscribe(
+      data=>{
+        if(!JSON.parse(JSON.stringify(data))['err'])
+        {
+          this.getConfigValues();
+          this._snackbar.open(JSON.parse(JSON.stringify(data))['msg'],null,{duration : 5000})
+        }
+        else
+        {
+          this._snackbar.open(JSON.parse(JSON.stringify(data))['err'],null,{duration : 5000})
+        }
+      },
+      err=>{
+        this._snackbar.open("Error in Loading Library Config Parameters",null,{duration : 5000})
+      }
+    )
+  }
+
 
   getSubscriptionCategories()
   {

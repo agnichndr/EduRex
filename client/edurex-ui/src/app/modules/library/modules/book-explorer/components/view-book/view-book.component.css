@@ -1,0 +1,49 @@
+.container
+{
+    margin: 5%;
+    border-radius: 5px;
+    padding : 2%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width : 90%;
+    max-height: fit-content;
+    overflow: visible;
+}
+
+.auto-flip 
+{
+    margin-right : 1rem;
+    margin-left: 1rem;
+}
+
+.like  
+{
+    color : lightslategrey;
+}
+
+.star
+{
+    color : orange;
+}
+
+.like :hover
+{
+    color : rgb(48, 48, 196);
+}
+
+img
+{
+    
+    height: 50%;
+    width:80%;
+    padding-left: 10%;
+    padding-bottom: 1rem;
+}
+
+h5{
+    color : lightslategray
+}
+
+.fas 
+{
+    font-size : 50px;
+}

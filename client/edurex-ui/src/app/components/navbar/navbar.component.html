@@ -12,7 +12,7 @@
       <mat-menu #settings="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="theme"
         matTooltip="Select a theme!" > <mat-icon class="auto-flip">format_color_fill</mat-icon> Theme</button>
-        <button mat-menu-item matToolTip = "Configure Counter"><mat-icon class="auto-flip">scatter_plot</mat-icon>Counter</button>
+        <button (click)="open(counter)" mat-menu-item matToolTip = "Configure Counter"><mat-icon class="auto-flip">scatter_plot</mat-icon>Counter</button>
       </mat-menu>
       
       <mat-menu #theme="matMenu">
@@ -32,5 +32,114 @@
 
     </mat-toolbar-row>
 </mat-toolbar>
+
+
+
+    <!-- Edit Content Modal-->
+    <ng-template #counter let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h2 class="modal-title">Counter Configuration System</h2>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form [formGroup]="counterForm">
+                          <button mat-button>Assessment</button>
+             <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Assessment Counter</mat-label>
+                <input matInput type="number" [formControl]="assessment" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Board</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Board Counter</mat-label>
+                <input matInput type="number" [formControl]="board" required placeholder="Enter an Author name" >
+            </mat-form-field> 
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Class</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Class Counter</mat-label>
+                <input matInput type="number" [formControl]="class" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Course</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Course Counter</mat-label>
+                <input matInput type="number" [formControl]="course" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button  class="btn btn-info" style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Library Books</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Library Counter</mat-label>
+                <input matInput type="number" [formControl]="library" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info" style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Parent</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Parent Counter</mat-label>
+                <input matInput type="number" [formControl]="parent" required placeholder="Enter an Author name" >
+            </mat-form-field> 
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Session</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Session Counter</mat-label>
+                <input matInput type="number" [formControl]="session" required placeholder="Enter an Author name" >
+            </mat-form-field> 
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info" style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Subject</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Subject Counter</mat-label>
+                <input matInput type="number" [formControl]="subject" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button  class="btn btn-info" style="margin-left : 1rem">Reset</button> <br>
+            <button mat-button>Subject Chapter</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Chapter Counter</mat-label>
+                <input matInput type="number" [formControl]="chapter" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info" style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Subject Group</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Subject Group Counter</mat-label>
+                <input matInput type="number" [formControl]="subject_group" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success"  style="margin-left : 1rem">Save</button>
+            <button mat-raised-button  class="btn btn-info" style="margin-left : 1rem">Reset</button> <br>
+            <button mat-button>Teacher</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Teacher Counter</mat-label>
+                <input matInput type="number" [formControl]="teacher" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button class="btn btn-success" style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Test</button> 
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Test Counter</mat-label>
+                <input matInput type="number" [formControl]="test" required placeholder="Enter an Author name" >
+            </mat-form-field>
+            <button mat-raised-button  class="btn btn-success" style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info"  style="margin-left : 1rem">Reset</button><br>
+            <button mat-button>Video</button>
+            <mat-form-field class="form-group" appearance="outline">
+                <mat-label>Video Counter</mat-label>
+                <input matInput type="number" [formControl]="video" required placeholder="Enter an Author name" >
+            </mat-form-field> 
+            <button mat-raised-button class="btn btn-success" style="margin-left : 1rem">Save</button>
+            <button mat-raised-button class="btn btn-info" style="margin-left : 1rem">Reset</button><br>
+          </form>
+          </div>
+        </div>
+      </ng-template>
 
 

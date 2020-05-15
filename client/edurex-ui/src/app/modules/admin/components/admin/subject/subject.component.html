@@ -9,6 +9,7 @@
       </div>
 <button  mat-raised-button color="primary" class="new action-button" (click)="showAddSubjectForm()">Create New</button>
 <button mat-raised-button color="primary" [matMenuTriggerFor]="bulkmenu" class="action-button">Bulk Action</button>
+<button  mat-raised-button color="primary" class="action-button" (click)="exportTable()">Export to Excel</button>
 <mat-menu #bulkmenu="matMenu">
 <button mat-menu-item (click)="deleteSubjects()">
     <i class="fas fa-trash"></i>
@@ -92,7 +93,7 @@
     <div class="paginator">
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]"></mat-paginator>
       </div>
-<table matSort  mat-table [dataSource]="dataSource" class="mat-elevation-z8 board-table">
+<table id="SubjectTable" matSort  mat-table [dataSource]="dataSource" class="mat-elevation-z8 board-table">
 
 
 <ng-container matColumnDef="select">

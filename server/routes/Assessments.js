@@ -44,23 +44,62 @@ assessments.get('/list-sort-end-date', (req,res,next)=>
 
 assessments.post('/add', (req, res, next)=>
 {
+    f(req.files)
+    {
+        attachment = req.files['attachment'];
+        answer = req.files['answer'];
+    }
     let newAssessment = new Assessment(
         {
-            assessment_id : req.body.assessment_id,
-            assessment_name : req.body.assessment_name,
-            assessment_description : req.body.assessment_description,
-            assessment_start_date : req.body.assessment_start_date,
-            assessment_end_date : req.body.assessment_end_date,
-            assesment_attachment : req.body.assesment_attachment,
-            assessment_full_marks :  req.body.assessment_full_marks,
-            assessment_class :  req.body.assessment_class,
-            assessment_subject :  req.body.assessment_subject,
-            assessment_answers :  req.body.assessment_answers,
+            assessment_id : req.body.id,
+            assessment_name : req.body.name,
+            assesment_sort_description : req.body.short,
+            assessment_description : req.body.description,
+            assessment_start_date : req.body.start_date,
+            assessment_end_date : req.body.end_date,
+            assesment_attachment : null,
+            assessment_full_marks :  req.body.full_marks,
+            assessment_class :  req.body.class,
+            assessment_subject :  req.body.subject,
+            assessment_chapters : req.body.chapters,
+            assessment_answers :  null,
             active : true,
         }
     );
+    
+    Assessment.findOne({
+        assessment_id : req.body.id
+    }).then ( result => {
+        if(!result)
+        {
+            if(attachment)
+            {
+                    let name = attachment.name.split(".");
+                    let stored_name=req.body.name+"-"+Date.now()+"."+ name[name.length-1];
+                    attachment.mv("./uploads/assessment/questions/"+stored_name, 
+                    (err)=>{
+                        if(err)
+                        {
+                            res.json({"err" : "Error in uploading Attachment"})
+                        }
+                        })
+                    newAssessment.assesment_attachment = stored_name;
+                    
+            }
 
-  
+            if(answer)
+            {
+                    let name = answer.name.split(".");
+                    let stored_name=req.body.name+"-"+Date.now()+"."+ name[name.length-1];
+                    answer.mv("./uploads/assessment/answers/"+stored_name, 
+                    (err)=>{
+                        if(err)
+                        {
+                            res.json({"err" : "Error in uploading Answers"})
+                        }
+                        })
+                    newAssessment.assessment_answers = stored_name;
+            }
             Assessment.create(newAssessment)
             .then(data=>
                 {
@@ -73,6 +112,12 @@ assessments.post('/add', (req, res, next)=>
                     res.json({"err": " Error in adding a new assessment to Edurex Database. Please try after few minutes"+err});
                 } 
             );
+        }
+    }).catch(
+        err=>{
+            res.json({"err": " Assessment with given ID already exists. Please try after some time"});
+        }
+    )
        
             }); 
 

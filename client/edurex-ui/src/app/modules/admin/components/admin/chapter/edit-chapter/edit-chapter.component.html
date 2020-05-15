@@ -1,0 +1,79 @@
+
+<div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+    <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+    <strong>Error!</strong> {{error}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+        <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+        <strong>Success!</strong> {{message}}
+      </div>
+
+<mat-divider></mat-divider>
+
+<mat-card  class="login">
+    <mat-card-header class="login-hdr">
+        <mat-card-title>
+            <h2>Chapter Updation</h2>
+            <h3>Chapter Id : {{chapter.chapter_id}}</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Field marked * are required.
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="login-form">
+        <form [formGroup]="chapterForm" (ngSubmit)="updateChapter()" enctype="multipart/form-data">  
+
+        <mat-form-field class="form-group"  appearance="outline">
+                <mat-label>Chapter Name</mat-label>
+                <input   matInput placeholder="Eg: Organic Chemistry" formControlName="chapter_name"  required>
+                
+                <mat-error *ngIf="chapter_name.hasError('required')">Value is required</mat-error>
+                <mat-error *ngIf="chapter_name.hasError('pattern')">Chapter Id should be alphanumeric and
+                    must start with an Alphabet. No  special characters allowed.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-group"  appearance="outline">
+                    <mat-label>Chapter Description</mat-label>
+                    <textarea matInput placeholder="Eg: Content of the Chapter" formControlName="chapter_description" >
+                   </textarea>
+                </mat-form-field>
+
+                <mat-form-field class="form-group"  appearance="outline" style="display: inline-block; width: 48%; margin-right : 1rem ">
+                        <mat-label>Subject</mat-label>
+                        <mat-select formControlName="chapter_subject" required >
+                            <mat-option *ngFor="let subject of subjectList" [value]="subject.subject_name">
+                                {{subject.subject_name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="chapter_subject.hasError('required')">Value is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-group"  appearance="outline" style=" width: 48%; justify-content: flex-end ; ">
+                            <mat-label>Class</mat-label>
+                            <mat-select formControlName="chapter_class" required >
+                                <mat-option *ngFor="let class of classList" [value]="class.class_name">
+                                    {{class.class_name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="chapter_subject.hasError('required')">Value is required</mat-error>
+                        </mat-form-field>
+                                <br>
+        <button class="action-button" mat-raised-button color="accent" type="submit"  [disabled]="submitDisabled()">Save</button>
+        <button class="action-button" mat-raised-button  type="button" click)="reset()" >Reset</button>
+       
+        </form>
+
+        <div class="alert alert-danger alert-dismissible fade-in" [hidden] = " error ? false : true">
+            <button type="button" class="close" data-dismiss="alert" (click) = "dismissErrorAlert()">&times;</button>
+            <strong>Error!</strong> {{error}}
+          </div>
+          <mat-divider></mat-divider>
+          <div class="alert alert-success alert-dismissible fade-in" [hidden] = " message ? false : true">
+                <button type="button" class="close" data-dismiss="alert" (click) = "dismissMessageAlert()">&times;</button>
+                <strong>Success!</strong> {{message}}
+              </div>
+        
+        
+    </mat-card-content>
+</mat-card>

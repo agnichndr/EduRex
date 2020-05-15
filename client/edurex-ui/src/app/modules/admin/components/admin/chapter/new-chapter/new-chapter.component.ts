@@ -84,7 +84,6 @@ export class NewChapterComponent implements OnInit {
    chapter_description : [''],
    chapter_subject : ['',Validators.required],
    chapter_class : ['',Validators.required],
-   chapter_referrence_book : [null],
    active : true
   });
 
@@ -119,26 +118,12 @@ export class NewChapterComponent implements OnInit {
     return this.chapterForm.get('chapter_image');
   }
 
-  File : any
-
-  onSelectFile(event) {
-    this.progress = 0;
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      this.File = event.target.files[0]
-      reader.onload = (event: any) => {
-        this.progress = Math.round(100 * event.loaded / event.total);
-        this.url = event.target.result;
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
+  
 
   addChapter()
   {
     
     let formData = new FormData()
-    formData.append('chapter_image',this.File);
     console.log(this.chapterForm);
     for ( const key of Object.keys(this.chapterForm.value) ) {
       const value = this.chapterForm.value[key];
@@ -167,6 +152,11 @@ export class NewChapterComponent implements OnInit {
   
 
  
+  }
+
+  reset()
+  {
+    this.chapterForm.reset()
   }
   }
 

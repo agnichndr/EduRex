@@ -14,6 +14,13 @@ export class ChapterService {
   URL : string = "http://localhost:3000/chapters/"
   constructor(private http : HttpClient) { }
 
+  getChapterById(id : String)
+  {
+    let headers = new HttpHeaders();
+    headers.append('content-Type','application/json');
+    return this.http.get(this.URL+ 'get/'+ id ,{headers : headers});
+  }
+
   getChapters(subject, class_name)
   {
     let headers = new HttpHeaders();
@@ -26,6 +33,20 @@ addChapter(newChapter : FormData)
   let headers = new HttpHeaders();
     headers.append('content-Type','application/json');
    return this.http.post(this.URL+'add/',newChapter);
+}
+
+updateChapter(id:String,newChapter : FormData)
+{
+  let headers = new HttpHeaders();
+    headers.append('content-Type','application/json');
+   return this.http.put(this.URL+'update/'+id,newChapter,{headers : headers});
+}
+
+deleteChapter(id : String)
+{
+  let headers = new HttpHeaders();
+    headers.append('content-Type','application/json');
+   return this.http.put(this.URL+'remove/'+id,{headers : headers});
 }
 
 

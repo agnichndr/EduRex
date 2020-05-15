@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,22 @@ export class LibraryCategoryService {
 
   URL = "http://localhost:3000/";
   constructor(private httpClient : HttpClient) { }
+
+  getConfigParameters()
+  {
+    let headers = new HttpHeaders();
+    headers.append("Content-Type","application/json");
+
+    return this.httpClient.get(this.URL+"library/config/list",{headers : headers});
+  }
+
+  setConfigParameter(form : any)
+  {
+    let headers = new HttpHeaders();
+    headers.append("Content-Type","application/json");
+
+    return this.httpClient.put(this.URL+"library/config/set",form,{headers : headers});
+  }
 
   getArticleCategories()
   {

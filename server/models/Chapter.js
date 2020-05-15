@@ -29,14 +29,6 @@ const chapterSchema = new schema(
            type : String,
            required : true,
        },
-       chapter_referrence_book  : 
-       {
-           type : [String],
-       },
-       image_source :
-       {
-           type : String,
-       },
        active : 
        {
            type : Boolean,

@@ -23,3 +23,15 @@ mat-tab-group
 {
     margin-top: 2rem;
 }
+
+.ng-template
+{
+    margin : 1%
+}
+.mat-button
+{
+    width: 200px;
+    margin:1%;
+    background-color: lightslategrey;
+    color : white;
+}

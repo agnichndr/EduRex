@@ -31,16 +31,23 @@
            <div class="col-sm-4 col-md-4 col-lg-4 chapter" *ngFor="let chapter of chapters;let i = index;">
             
             <mat-card style="background-color:{{header_color[i%8]}}">
-                <div mat-card-avatar style="background-image: url('https://localhost:3000/uploads/chapter-images/imgonline-com-ua-CompressToSize-ZqOARTDCSI-1586540756539.jpg');
-                background-size: cover;"></div>
                 <mat-card-header style="color:black; margin : 1rem; border-radius : 2px">
                     <mat-card-title>{{chapter.chapter_id}} : {{chapter.chapter_name}}</mat-card-title>
                    <mat-card-subtitle>{{chapter.chapter_subject}} : {{chapter.chapter_class}}</mat-card-subtitle>
                 </mat-card-header>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Description
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <p>{{chapter.chapter_description}}</p> 
+                          </mat-expansion-panel>
+               </mat-accordion>
                   <mat-card-footer>
-                      <button mat-mini-fab class="action-button" color="primary" ><i class="fas fa-eye"></i></button>
-                      <button mat-mini-fab class="action-button" color="accent" ><i class="fas fa-edit"></i></button>
-                      <button mat-mini-fab class="action-button" color="warn" ><i class="fas fa-trash"></i></button>
+                      <button routerLink="edit/{{chapter.chapter_id}}" mat-mini-fab class="action-button" color="accent" ><i class="fas fa-edit"></i></button>
+                      <button (click)="deleteChapter(chapter.chapter_id)" mat-mini-fab class="action-button" color="warn" ><i class="fas fa-trash"></i></button>
                   </mat-card-footer>
                </mat-card>
               

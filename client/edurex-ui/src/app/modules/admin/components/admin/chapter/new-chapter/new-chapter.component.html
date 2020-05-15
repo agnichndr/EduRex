@@ -66,27 +66,9 @@
                                 </mat-select>
                                 <mat-error *ngIf="chapter_subject.hasError('required')">Value is required</mat-error>
                             </mat-form-field>
-
-                            <mat-form-field class="form-group"  appearance="outline">
-                                    <mat-label>Refference Book</mat-label>
-                                    <mat-select multiple formControlName="chapter_referrence_book">
-                                            <mat-option *ngFor="let class of classList" [value]="class.class_name">
-                                                    {{class.class_name}}
-                                            </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <mat-form-field  style=" width: 30%; display: inline-block; margin-right: 100px;"  appearance="outline">
-                                        <mat-label>Browse Image</mat-label>
-                                        <ngx-mat-file-input  accept="{{'.jpg' || '.png' || '.jpeg'}}" [disabled]="uploading" placeholder="Browse Image"
-                                        (change)="onSelectFile($event)" ></ngx-mat-file-input>
-                                </mat-form-field>
-
-                                    <img style="height: 200px; width: 150px;"  mat-card-image src="{{url}}" alt="Chapter Photo"><br>
-                                    <mat-hint>Images in .jpg, .jpeg and .png only allowed </mat-hint>
-                                    <mat-progress-bar mode="determinate" value="{{progress}}"></mat-progress-bar>
                                     <br>
             <button class="action-button" mat-raised-button color="accent" type="submit"  [disabled]="submitDisabled()">Save</button>
-            <button class="action-button" mat-raised-button  type="button" >Reset</button>
+            <button class="action-button" mat-raised-button  type="button" (click)="reset()">Reset</button>
            
             </form>
 

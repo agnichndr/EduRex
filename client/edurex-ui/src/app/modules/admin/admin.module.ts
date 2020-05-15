@@ -27,6 +27,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BoardComponent } from './components/admin/board/board.component';
 import { BoardService } from './service/board.service';
@@ -44,6 +45,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 import { EditgroupComponent } from './components/admin/subject-group/editgroup/editgroup.component';
 import { SessionComponent } from './components/admin/session/session.component';
@@ -52,6 +55,10 @@ import { ELibraryComponent } from './components/admin/e-library/e-library.compon
 import { NewChapterComponent } from './components/admin/chapter/new-chapter/new-chapter.component';
 import { AllChapterComponent } from './components/admin/chapter/all-chapter/all-chapter.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { EditChapterComponent } from './components/admin/chapter/edit-chapter/edit-chapter.component';
+import { NewAssessmentComponent } from './components/admin/assessment/new-assessment/new-assessment.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -68,6 +75,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ELibraryComponent,
     NewChapterComponent,
     AllChapterComponent,
+    EditChapterComponent,
+    NewAssessmentComponent,
     
     
   ],
@@ -79,6 +88,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatInputModule,
     MatIconModule,
     MatExpansionModule,
@@ -103,7 +114,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ReactiveFormsModule,
     HttpClientModule,
     AdminRoutingModule,
-    NgBreadcrumbModule
+    NgBreadcrumbModule,
+    NgxMaterialTimepickerModule,
 
   ],
   providers: [BoardService, ClassService, SubjectService,GroupService],

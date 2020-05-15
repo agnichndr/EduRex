@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
+var Chapter = require('./Chapter')
 
 const assessmentSchema = new schema(
     {
@@ -11,6 +12,11 @@ const assessmentSchema = new schema(
        assessment_name : 
        {
            type : String,
+           required : true,
+       },
+       assessment_short_description :
+       {
+           type:String,
            required : true,
        },
        assessment_description :
@@ -54,8 +60,7 @@ const assessmentSchema = new schema(
        assessment_chapters : 
        {
            type : [String]
-       },
-       active : 
+       },     active : 
        {
            type : Boolean,
            required : true,

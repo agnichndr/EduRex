@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -39,13 +40,17 @@ import { CreateNewBooksComponent } from './components/create-new-books/create-ne
 import { BookExplorerRoutingModule } from './book-explorer.routing.module';
 import { DisplayBookComponent } from './components/display-book/display-book.component';
 import { ViewBookComponent } from './components/view-book/view-book.component';
-
+import { EditBookComponent } from './components/edit-book/edit-book.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { NgxDocViewerModule} from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [BookExplorerComponent,
                   CreateNewBooksComponent,
                 DisplayBookComponent,
-              ViewBookComponent],
+              ViewBookComponent,
+            EditBookComponent],
   imports: [
     CommonModule,
     MatSliderModule,
@@ -58,6 +63,7 @@ import { ViewBookComponent } from './components/view-book/view-book.component';
     MatIconModule,
     MatExpansionModule,
     MatSidenavModule,
+    MatBadgeModule,
     MatTableModule,
     MatSortModule,
     MatAutocompleteModule,
@@ -78,9 +84,14 @@ import { ViewBookComponent } from './components/view-book/view-book.component';
     BookExplorerRoutingModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule,
+    PdfJsViewerModule,
+    NgxDocViewerModule
   ],
   providers : [],
   bootstrap: [BookExplorerComponent,CreateNewBooksComponent]
 })
+
+
 export class BookExplorerModule { }
